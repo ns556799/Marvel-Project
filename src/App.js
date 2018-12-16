@@ -4,6 +4,8 @@ import './App.css';
 import CryptoJS from 'crypto-js'
 import Axios from 'axios';
 
+import CharacterItem from './components/CharacterItem'
+
 const publicKey = '306e2c7a911a16b8c95ac6996801dd65'
 const privateKey = 'c92da84ea1eaa998b871e88d942448bc4cefd9dc'
 const ts = new Date().getTime()
@@ -23,6 +25,7 @@ let offset = 0
 // .catch((err) => {
 //   console.log(err)
 // })
+
 
 class App extends Component {
   constructor(props) {
@@ -44,15 +47,24 @@ class App extends Component {
    })
  }
   render() {
+
+    const renderChar = () => {
+      this.state.chars.forEach((e) => {
+       return <CharacterItem data = {e}/>
+      })
+    }
+    
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
+          
         </header>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+<renderChar/>
       </div>
     );
   }
