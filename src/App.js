@@ -3,8 +3,9 @@ import logo from './logo.svg';
 import './App.css';
 import CryptoJS from 'crypto-js'
 import Axios from 'axios';
+import ls from 'localstorage-ttl'
 
-import CharacterItem from './components/CharacterItem'
+import CharacterList from './components/CharacterList'
 
 const publicKey = '306e2c7a911a16b8c95ac6996801dd65'
 const privateKey = 'c92da84ea1eaa998b871e88d942448bc4cefd9dc'
@@ -36,24 +37,35 @@ class App extends Component {
     }
  }
 
- componentDidMount() {
+ componentWillMount() {
    console.log('mounted')
-   Axios.get(`http://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=100&offset=${offset}`)
-   .then((char) => {
-     console.log(char.data.data.results[0])
-     this.setState({
-       chars: [...this.state.chars, char.data.data.results]
-     })
-   })
- }
-  render() {
-
-    const renderChar = () => {
-      this.state.chars.forEach((e) => {
-       return <CharacterItem data = {e}/>
+   if (!ls.get('offset100')) {
+    Axios.get(`http://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}&limit=100&offset=${offset}`)
+    .then((char) => {
+      ls.set('offset100', JSON.stringify(char.data.data.results), 86400000);
+      this.setState({
+        chars: [...this.state.chars, JSON.parse(ls.get('offset100'))]
       })
+    })
+   } else {
+    this.setState({
+      chars: [...this.state.chars, JSON.parse(ls.get('offset100'))]
+    })
+   }
+ }
+//  1545137051469
+  render() {
+    function renderCharacters() {
+      // if (this.state.chars.length) {
+      //   this.state.chars.map(item => {
+      //   console.log(item)
+      //   return <CharacterItem key={item.id} data={item}/>
+      //   })
+      // } else {
+      //   return
+      // }
     }
-    
+       
     return (
       <div className="App">
         <header className="App-header">
@@ -64,7 +76,9 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-<renderChar/>
+        {this.state.chars.map((item, i) => {
+         return <CharacterList key= {i} data={item} />
+        })}
       </div>
     );
   }
