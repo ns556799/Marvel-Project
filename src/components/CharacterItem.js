@@ -2,11 +2,16 @@ import React, {Component} from 'react'
 
 class CharacterItem extends Component {
     render() {
-        const { id } = this.props.data;
+        const { id, name, thumbnail,  } = this.props.data;
+        const {path, extension} = thumbnail
 
         return(
             
-          <div>{id}</div>  
+          <div>
+              <p>{name}</p>
+              <p>{id}</p>
+              <img src={`${path}.${extension}`} />
+          </div>  
         )
     }
 }
