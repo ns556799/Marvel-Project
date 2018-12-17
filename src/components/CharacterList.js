@@ -7,10 +7,9 @@ class CharacterList extends Component {
         return(
            data.map((item, i) => {
                return <CharacterItem key = {i} data={item} />
-           }) 
+           })
         )
     }
 }
-
 
 export default CharacterList
