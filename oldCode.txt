@@ -1,0 +1,44 @@
+    // Get total of characters in db
+    let total = Axios.get(`http://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${API_PUBLIC_KEY}&hash=${hash}&limit=1`).then((res) => res.data.data.total)
+    let dataArr1 = []
+    let dataArr2 = []
+
+    async function myfunc() {
+      total = await total
+      console.log(total)
+      const quotient = Math.floor(total / 100)
+      // var remainder = y % x;
+      console.log(quotient)
+      for (let i = 1; i < quotient + 1; i++) {
+        GetMarvelData(i)
+      }
+    }
+
+    function GetMarvelData(i) {
+      const lOffset = i * 100
+      Axios.get(`http://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${API_PUBLIC_KEY}&hash=${hash}&limit=100&offset=${lOffset}`)
+        .then((res) => {
+          console.log(res)
+          if (i < 10) {
+            dataArr1 = [...dataArr1, res.data.data.results]
+          } else {
+            dataArr2 = [...dataArr2, res.data.data.results]
+          }
+          if (i === 14) {
+            ls.set('marvelData1', JSON.stringify(dataArr1), 86400000)
+            sessionStorage.setItem('marvelData2', JSON.stringify(dataArr2))
+          }
+        })
+        .catch((err) => { console.log(err) })
+    }
+
+    if (!ls.get('marvelData1')) {
+      myfunc()
+      this.setState({
+        chars: [...this.state.chars, [].concat.apply([], JSON.parse(ls.get('marvelData1')), JSON.parse(sessionStorage.getItem('marvelData2')))]
+      })
+    } else {
+      this.setState({
+        chars: [...this.state.chars, [].concat.apply([], JSON.parse(ls.get('marvelData1')), JSON.parse(sessionStorage.getItem('marvelData2')))]
+      })
+    }
