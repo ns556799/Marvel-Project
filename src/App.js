@@ -17,46 +17,46 @@ class App extends Component {
     super(props)
 
     this.state = {
-      chars: [],
-      total: null
+      characters: [
+        'Spider-Man',
+        'Captain America',
+        'Iron Man',
+        'Thor',
+        'Hulk',
+        'Black Widow',
+        'Black Panther',
+        'Falcon',
+        'Loki',
+        'Hawkeye',
+        'Vision',
+        'War Machine (Parnell Jacobs)',
+        'Scarlet Witch',
+        'Ultron',
+        'Thanos',
+        'Wolverine'
+      ],
+      marvelData: []
     }
   }
 
   componentWillMount() {
-    // Get total of characters in db
-    let total = Axios.get(`http://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${API_PUBLIC_KEY}&hash=${hash}&limit=1`).then((res) => res.data.data.total)
-
-    async function myfunc() {
-      total = await total
-      console.log(total)
-      var quotient = Math.floor(y/x);
-      var remainder = y % x;
-    }
-
-    myfunc()
-    console.log()
-    let offset = 0
-
-    Axios.get(`http://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${API_PUBLIC_KEY}&hash=${hash}&limit=1`)
-      .then((res) => {
-        this.setState({
-          total: res.data.data.total
-        })
-      }).catch((err) => {
-        console.log(err)
-      })
-
-    if (!ls.get('offset100')) {
-      Axios.get(`http://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${API_PUBLIC_KEY}&hash=${hash}&limit=100&offset=${offset}`)
-        .then((char) => {
-          ls.set('offset100', JSON.stringify(char.data.data.results), 86400000)
-          this.setState({
-            chars: [...this.state.chars, JSON.parse(ls.get('offset100'))]
+    if (!ls.get('marvelData') || (JSON.parse(ls.get('marvelData'))).length !== this.state.characters.length) {
+      console.log('Connecting to API')
+      this.state.characters.forEach((el) => {
+        const encodedName = encodeURIComponent(el.trim())
+        Axios.get(`http://gateway.marvel.com/v1/public/characters?name=${encodedName}&ts=${ts}&apikey=${API_PUBLIC_KEY}&hash=${hash}`)
+          .then((res) => {
+            this.setState({
+              marvelData: [...this.state.marvelData, res.data.data.results]
+            })
+            ls.set('marvelData', JSON.stringify(this.state.marvelData), 86400000)
           })
-        })
+          .catch((err) => { console.log(err) })
+      })
     } else {
+      console.log('Connecting to localStorage')
       this.setState({
-        chars: [...this.state.chars, JSON.parse(ls.get('offset100'))]
+        marvelData: [...this.state.marvelData, [].concat.apply([], JSON.parse(ls.get('marvelData')))]
       })
     }
   }
@@ -65,7 +65,7 @@ class App extends Component {
       <div className='App'>
         <div className='wrap'>
           <div className='character-list'>
-            {this.state.chars.map((item, i) => {
+            { this.state.marvelData.map((item, i) => {
               return <CharacterList key={i} data={item} />
             })}
           </div>
