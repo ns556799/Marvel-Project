@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import './App.css'
+import './css/App.css'
 import CryptoJS from 'crypto-js'
 import Axios from 'axios'
 import ls from 'localstorage-ttl'
 
+import Header from './components/Header'
+import Footer from './components/Footer'
 import CharacterList from './components/CharacterList'
 
 let API_PUBLIC_KEY = process.env.REACT_APP_API_PUBLIC_KEY
@@ -63,6 +65,7 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
+        <Header />
         <div className='wrap'>
           <div className='character-list'>
             { this.state.marvelData.map((item, i) => {
@@ -70,6 +73,7 @@ class App extends Component {
             })}
           </div>
         </div>
+        <Footer />
       </div>
     )
   }
