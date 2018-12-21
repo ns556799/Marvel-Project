@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import CryptoJS from 'crypto-js'
 import Axios from 'axios'
+import '../css/CharacterItem.css'
 
 const API_PUBLIC_KEY = process.env.REACT_APP_API_PUBLIC_KEY
 const API_PRIVATE_KEY = process.env.REACT_APP_API_PRIVATE_KEY
@@ -30,9 +31,17 @@ class CharacterItem extends Component {
     const GetDescription = () => {
       if (this.state.ShowDescription) {
         if (description) {
-          return description
+          return (
+            <div className='character-item__description'>
+              {description}
+            </div>
+          )
         } else {
-          return 'No description available'
+          return (
+            <div className='character-item__description'>
+                'No description available'
+            </div>
+          )
         }
       } else {
         return null
