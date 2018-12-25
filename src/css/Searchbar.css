@@ -1,0 +1,7 @@
+.app-searchbar{}
+.app-searchbar__wrapper{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}

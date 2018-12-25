@@ -1,35 +1,10 @@
-@font-face {
-  font-family: 'MarvelFont';
-  src: url('../fonts/BentonSansComp-Black.eot');
-  src: url('../fonts/BentonSansComp-Black.eot?#iefix') format('embedded-opentype'),
-  url('../fonts/BentonSansComp-Black.woff2') format('woff2'),
-  url('../fonts/BentonSansComp-Black.woff') format('woff'),
-  url('../fonts/BentonSansComp-Black.ttf') format('truetype'),
-  url('../fonts/BentonSansComp-Black.svg#BentonSansComp-Black') format('svg');
-  font-weight: 900;
-  font-style: normal;
+.app-cookie {
+  background-color: blue;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
-
-
-.app-header {
-  background-color: #ff0000;
-  color: white;
-  font-family: MarvelFont;
+.app-cookie__content {
   text-align: center;
-  text-transform: uppercase;
-  padding: 50px 0;
-  margin-bottom: 50px;
-}
-
-.app-header__text{
-  display: flex;
-  flex-direction: column;
-
-}
-.app-header__text-one{
-  font-size: 120px;
-  letter-spacing: -3px;
-}
-.app-header__text-two{
-  font-size: 40px;
 }

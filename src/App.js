@@ -7,6 +7,8 @@ import ls from 'localstorage-ttl'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import CharacterList from './components/CharacterList'
+import Cookiebar from './components/Cookiebar'
+import Searchbar from './components/Searchbar'
 
 let API_PUBLIC_KEY = process.env.REACT_APP_API_PUBLIC_KEY
 let API_PRIVATE_KEY = process.env.REACT_APP_API_PRIVATE_KEY
@@ -37,7 +39,8 @@ class App extends Component {
         'Thanos',
         'Wolverine'
       ],
-      marvelData: []
+      marvelData: [],
+      cookieAccept: false
     }
   }
 
@@ -61,11 +64,32 @@ class App extends Component {
         marvelData: [...this.state.marvelData, [].concat.apply([], JSON.parse(ls.get('marvelData')))]
       })
     }
+    if (ls.get('cookieAccept')) {
+      this.setState({
+        cookieAccept: true
+      })
+    }
   }
+
+  handleCookieAccept() {
+    this.setState({
+      cookieAccept: true
+    })
+    ls.set('cookieAccept', true, 2592000000)
+  }
+
   render() {
+    const RenderCookie = () => {
+      if (!this.state.cookieAccept) {
+        return <Cookiebar accept={this.handleCookieAccept.bind(this)} />
+      } else {
+        return null
+      }
+    }
     return (
       <div className='App'>
         <Header />
+        <Searchbar />
         <div className='wrap'>
           <div className='character-list'>
             { this.state.marvelData.map((item, i) => {
@@ -74,6 +98,7 @@ class App extends Component {
           </div>
         </div>
         <Footer />
+        <RenderCookie />
       </div>
     )
   }

@@ -27,6 +27,7 @@
     border-radius: 100%;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .character-item__wrapper:after {
