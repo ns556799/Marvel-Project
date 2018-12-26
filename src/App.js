@@ -8,7 +8,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import CharacterList from './components/CharacterList'
 import Cookiebar from './components/Cookiebar'
-import Searchbar from './components/Searchbar'
+import SearchContainer from './components/SearchContainer'
 
 let API_PUBLIC_KEY = process.env.REACT_APP_API_PUBLIC_KEY
 let API_PRIVATE_KEY = process.env.REACT_APP_API_PRIVATE_KEY
@@ -89,7 +89,7 @@ class App extends Component {
     return (
       <div className='App'>
         <Header />
-        <Searchbar />
+        <SearchContainer />
         <div className='wrap'>
           <div className='character-list'>
             { this.state.marvelData.map((item, i) => {
