@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Axios from 'axios'
+import ResItem from './ResItem'
 
 import '../css/SearchContainer.css'
 import CryptoJS from 'crypto-js'
@@ -32,9 +33,13 @@ class SearchContainer extends Component {
         const searchQuery = encodeURIComponent((this.state.inputValue).trim())
         if (searchQuery.length) {
           console.log(searchQuery)
+          let searchRes = []
           Axios.get(`http://gateway.marvel.com/v1/public/characters?nameStartsWith=${searchQuery}&ts=${ts}&apikey=${API_PUBLIC_KEY}&hash=${hash}`)
             .then((res) => {
-              console.log(res.data.data)
+              searchRes = [...searchRes, res.data.data.results]
+              console.log(typeof (searchRes))
+              const searchChar = searchRes[0]
+              return Object.keys(searchRes[0]).map((key, index) => <ResItem key={key} data={searchChar[index]} />)
             })
             .catch((err) => { console.log(err) })
         }
