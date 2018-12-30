@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'ComicFont';
-    src:url('../fonts/DigitalStrip-20-BB.ttf.woff') format('woff'),
+    src: url('../fonts/DigitalStrip-20-BB.ttf.woff') format('woff'),
     url('../fonts/DigitalStrip-20-BB.ttf.svg#DigitalStrip-20-BB') format('svg'),
     url('../fonts/DigitalStrip-20-BB.ttf.eot'),
     url('../fonts/DigitalStrip-20-BB.ttf.eot?#iefix') format('embedded-opentype');
@@ -8,20 +8,31 @@
     font-style: normal;
 }
 
-.character-list{
+.character-list {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    padding: 50px 0;
+}
+
+.-hide .character-item {
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
 }
 
 .character-item {
     max-width: 20%;
     flex-basis: 20%;
     position: relative;
+    opacity: 1;
+    transition: opacity 0.5s ease-in;
 }
+@media (min-width: 600px) {}
+@media (min-width: 1200px) {}
 
-.character-item__wrapper{
+
+.character-item__wrapper {
     background-size: cover;
     background-position: center center;
     border-radius: 100%;
@@ -65,9 +76,9 @@
     opacity: 1;
 }
 
-.character-item__description{
+.character-item__description {
     position: absolute;
-    top:calc(100% + 5px);
+    top: calc(100% + 5px);
     background: white;
     z-index: 1;
     padding: 10px 15px;
@@ -75,7 +86,7 @@
     border-radius: 5px;
 }
 
-.character-item__description:before{
+.character-item__description:before {
     content: '';
     position: absolute;
     bottom: calc(100% + 5px);
