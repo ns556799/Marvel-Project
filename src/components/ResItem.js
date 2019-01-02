@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 
+import '../css/ResultItem.css'
+
 class ResItem extends Component {
   constructor(props) {
     super(props)
@@ -21,9 +23,13 @@ class ResItem extends Component {
   }
 
   render() {
-    const {name, id} = this.props.data
+    const {name, id, thumbnail} = this.props.data
+    const {path, extension} = thumbnail
+    const imgUrl = `${path}.${extension}`
     return (
-      <div onClick={this.handleChecked.bind(this, name)} data-name={name}>
+      <div className='result-item' onClick={this.handleChecked.bind(this, name)} data-name={name}>
+        <div className='result-item__wrapper' data-name={name}
+          style={{backgroundImage: 'url(' + imgUrl + ')'}} />
         {name}
         {id}
       </div>

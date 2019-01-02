@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import ResItem from './ResItem'
+import '../css/ResultsList.css'
 
 class ResultList extends Component {
   constructor(props) {
@@ -17,9 +18,11 @@ class ResultList extends Component {
           <span>Click a character to add them to the main screen</span>
           <button onClick={this.props.closeRes}> X </button>
         </div>
-        {data.map((item, i) => {
-          return <ResItem key={i} data={item} save={this.props.save} remove={this.props.remove} />
-        })}
+        <div className='results-list__wrapper'>
+          {data.map((item, i) => {
+            return <ResItem key={i} data={item} save={this.props.save} remove={this.props.remove} />
+          })}
+        </div>
       </div>
     )
   }

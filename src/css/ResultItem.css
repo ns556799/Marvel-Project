@@ -1,0 +1,17 @@
+.result-item{
+  max-width: 10%;
+  flex-basis: 10%;
+}
+
+.result-item__wrapper {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 100%;
+}
+
+.result-item__wrapper:after {
+  content: '';
+  display: block;
+  padding-bottom: 50%;
+}

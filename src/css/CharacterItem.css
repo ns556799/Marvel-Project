@@ -22,14 +22,24 @@
 }
 
 .character-item {
-    max-width: 20%;
-    flex-basis: 20%;
+    max-width: 33.33%;
+    flex-basis: 33.33%;
     position: relative;
     opacity: 1;
     transition: opacity 0.5s ease-in;
 }
-@media (min-width: 600px) {}
-@media (min-width: 1200px) {}
+@media (min-width: 720px) {
+    .character-item {
+        max-width: 25%;
+        flex-basis: 25%;
+    }
+}
+@media (min-width: 1200px) {
+    .character-item {
+        max-width: 20%;
+        flex-basis: 20%;
+    }
+}
 
 
 .character-item__wrapper {
@@ -84,6 +94,9 @@
     padding: 10px 15px;
     border: 2px solid black;
     border-radius: 5px;
+    width: 100%;
+    left: -25px;
+    font-family: ComicFont;
 }
 
 .character-item__description:before {

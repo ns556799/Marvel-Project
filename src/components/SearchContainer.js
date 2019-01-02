@@ -39,6 +39,7 @@ class SearchContainer extends Component {
 
   saveCharacter(e, name) {
     console.log('add', e.target.dataset.name)
+    console.log('add', e.target)
     this.setState({
       selectedResults: [...this.state.selectedResults, e.target.dataset.name]
     })
